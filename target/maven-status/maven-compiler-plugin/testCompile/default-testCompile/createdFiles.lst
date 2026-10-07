@@ -1,0 +1,17 @@
+com/arigs/rms/validator/WorkflowValidatorTest.class
+com/arigs/rms/integration/PlatformOperationalIntegrationTest.class
+com/arigs/rms/service/impl/WorkflowEngineServiceImplTest.class
+com/arigs/rms/service/impl/AuditTrailServiceImplTest.class
+com/arigs/rms/service/impl/DashboardServiceImplTest.class
+com/arigs/rms/service/impl/BusinessRuleServiceImplTest.class
+com/arigs/rms/integration/OutboxIntegrationTest.class
+com/arigs/rms/security/PermissionServiceImplTest.class
+com/arigs/rms/service/impl/JobRequestServiceImplTest.class
+com/arigs/rms/service/impl/FileServiceImplTest.class
+com/arigs/rms/service/impl/CandidateServiceImplTest.class
+com/arigs/rms/notification/NotificationServiceImplTest.class
+com/arigs/rms/service/impl/UserServiceImplTest.class
+com/arigs/rms/service/impl/NotificationCenterServiceImplTest.class
+com/arigs/rms/service/impl/ReportServiceImplTest.class
+com/arigs/rms/service/impl/BackgroundJobServiceImplTest.class
+com/arigs/rms/service/impl/WorkflowTimelineServiceImplTest.class

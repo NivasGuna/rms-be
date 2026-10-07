@@ -1,0 +1,84 @@
+server:
+  port: ${RMS_SERVER_PORT:8080}
+
+spring:
+  application:
+    name: rms-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        default_batch_fetch_size: 50
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+    locations: classpath:db/migration,filesystem:docs/database/migrations
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+  quartz:
+    job-store-type: memory
+    properties:
+      org.quartz.scheduler.instanceName: rms-scheduler
+      org.quartz.scheduler.instanceId: AUTO
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  observations:
+    http:
+      server:
+        requests:
+          name: rms.http.server.requests
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db,diskSpace,outbox,storage,integrations
+        liveness:
+          include: livenessState
+
+rms:
+  security:
+    access-token-minutes: 30
+    refresh-token-days: 7
+  notification:
+    retry-limit: 3
+    retry-delay-ms: 300000
+  outbox:
+    enabled: true
+    batch-size: 50
+    retry-limit: 10
+    dispatch-delay-ms: 30000
+    stale-after: PT15M
+  integrations:
+    timeout: PT5S
+    endpoints: {}
+  platform:
+    feature-flags:
+      outbox-dispatch: true
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

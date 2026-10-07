@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: rms
+      POSTGRES_USER: ${RMS_DB_USERNAME}
+      POSTGRES_PASSWORD: ${RMS_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - rms_postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  rms-backend:
+    build: .
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      RMS_DB_URL: jdbc:postgresql://postgres:5432/rms
+      RMS_DB_USERNAME: ${RMS_DB_USERNAME}
+      RMS_DB_PASSWORD: ${RMS_DB_PASSWORD}
+      RMS_JWT_SECRET: ${RMS_JWT_SECRET}
+      RMS_CACHE_TYPE: redis
+      RMS_REDIS_HOST: redis
+      RMS_OUTBOX_ENABLED: ${RMS_OUTBOX_ENABLED:-true}
+      RMS_FEATURE_OUTBOX_DISPATCH: ${RMS_FEATURE_OUTBOX_DISPATCH:-true}
+      RMS_FEATURE_EXTERNAL_INTEGRATIONS: ${RMS_FEATURE_EXTERNAL_INTEGRATIONS:-false}
+      RMS_OTEL_EXPORTER_OTLP_ENDPOINT: ${RMS_OTEL_EXPORTER_OTLP_ENDPOINT:-http://localhost:4318/v1/traces}
+      RMS_TRACING_SAMPLING_PROBABILITY: ${RMS_TRACING_SAMPLING_PROBABILITY:-1.0}
+    ports:
+      - "8080:8080"
+
+volumes:
+  rms_postgres:

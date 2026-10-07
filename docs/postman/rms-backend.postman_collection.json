@@ -1,0 +1,106 @@
+{
+  "info": {
+    "name": "RMS Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Enterprise-ready RMS backend API collection with authentication, recruitment workflows, platform configuration, OpenAPI, and health checks."
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"change-me\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/v1/auth/refresh",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/v1/auth/logout",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Job Requests",
+      "item": [
+        { "name": "Search Job Requests", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/job-requests" } },
+        { "name": "Get Job Request", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/job-requests/{{jobRequestId}}" } },
+        { "name": "Create Job Request", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/api/v1/job-requests", "body": { "mode": "raw", "raw": "{\n  \"requestNumber\": \"JR-001\",\n  \"clientName\": \"Client\",\n  \"projectName\": \"Project\",\n  \"jobTitle\": \"Engineer\",\n  \"description\": \"Role description\",\n  \"location\": \"Bengaluru\",\n  \"employmentType\": \"FULL_TIME\",\n  \"priority\": \"HIGH\",\n  \"numberOfPositions\": 1,\n  \"minExperienceYears\": 3,\n  \"maxExperienceYears\": 6,\n  \"budgetAmount\": 1000000,\n  \"targetDate\": \"2026-08-31\",\n  \"salesOwnerId\": \"{{salesOwnerId}}\"\n}" } } },
+        { "name": "Approve Job Request", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/api/v1/job-requests/{{jobRequestId}}/approve", "body": { "mode": "raw", "raw": "{\n  \"comments\": \"Approved\"\n}" } } },
+        { "name": "Job Request History", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/job-requests/{{jobRequestId}}/history" } }
+      ]
+    },
+    {
+      "name": "Candidates",
+      "item": [
+        { "name": "Search Candidates", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/candidates" } },
+        { "name": "Get Candidate", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/candidates/{{candidateId}}" } },
+        { "name": "Update Candidate Status", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/api/v1/candidates/{{candidateId}}/status", "body": { "mode": "raw", "raw": "{\n  \"status\": \"SHORTLISTED\",\n  \"comments\": \"Screening passed\"\n}" } } },
+        { "name": "Candidate History", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/candidates/{{candidateId}}/history" } }
+      ]
+    },
+    {
+      "name": "Platform",
+      "item": [
+        { "name": "Feature Flags", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/platform/feature-flags" } },
+        { "name": "Sanitized Runtime Config", "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/platform/config" } },
+        { "name": "Readiness", "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/actuator/health/readiness" } },
+        { "name": "Liveness", "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/actuator/health/liveness" } },
+        { "name": "OpenAPI", "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/api-docs" } },
+        { "name": "Prometheus", "request": { "method": "GET", "url": "{{baseUrl}}/actuator/prometheus" } }
+      ]
+    }
+  ]
+}

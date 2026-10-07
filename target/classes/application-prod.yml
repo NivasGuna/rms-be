@@ -1,0 +1,75 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: ${RMS_DB_DRIVER:org.postgresql.Driver}
+    url: ${RMS_DB_URL}
+    username: ${RMS_DB_USERNAME}
+    password: ${RMS_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${RMS_DB_POOL_MAX:20}
+      minimum-idle: ${RMS_DB_POOL_MIN_IDLE:5}
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  flyway:
+    enabled: ${RMS_FLYWAY_ENABLED:true}
+    url: ${RMS_DB_URL}
+    user: ${RMS_DB_USERNAME}
+    password: ${RMS_DB_PASSWORD}
+  mail:
+    host: ${RMS_MAIL_HOST}
+    port: ${RMS_MAIL_PORT:587}
+    username: ${RMS_MAIL_USERNAME}
+    password: ${RMS_MAIL_PASSWORD}
+    test-connection: false
+    properties:
+      mail.smtp.auth: ${RMS_MAIL_AUTH:true}
+      mail.smtp.starttls.enable: ${RMS_MAIL_STARTTLS:true}
+  cache:
+    type: ${RMS_CACHE_TYPE:redis}
+  data:
+    redis:
+      host: ${RMS_REDIS_HOST}
+      port: ${RMS_REDIS_PORT:6379}
+      password: ${RMS_REDIS_PASSWORD}
+      timeout: 2s
+  quartz:
+    job-store-type: ${RMS_QUARTZ_JOB_STORE_TYPE:memory}
+    properties:
+      org.quartz.threadPool.threadCount: ${RMS_QUARTZ_THREAD_COUNT:5}
+
+management:
+  tracing:
+    enabled: ${RMS_TRACING_ENABLED:true}
+    sampling:
+      probability: ${RMS_TRACING_SAMPLING_PROBABILITY:1.0}
+  otlp:
+    tracing:
+      endpoint: ${RMS_OTEL_EXPORTER_OTLP_ENDPOINT}
+
+rms:
+  security:
+    jwt-secret: ${RMS_JWT_SECRET}
+    access-token-minutes: ${RMS_ACCESS_TOKEN_MINUTES:30}
+    refresh-token-days: ${RMS_REFRESH_TOKEN_DAYS:7}
+  files:
+    storage-root: ${RMS_FILE_STORAGE_ROOT}
+  notification:
+    retry-limit: ${RMS_NOTIFICATION_RETRY_LIMIT:3}
+    retry-delay-ms: ${RMS_NOTIFICATION_RETRY_DELAY_MS:300000}
+  outbox:
+    enabled: ${RMS_OUTBOX_ENABLED:true}
+    batch-size: ${RMS_OUTBOX_BATCH_SIZE:50}
+    retry-limit: ${RMS_OUTBOX_RETRY_LIMIT:10}
+    dispatch-delay-ms: ${RMS_OUTBOX_DISPATCH_DELAY_MS:30000}
+    stale-after: ${RMS_OUTBOX_STALE_AFTER:PT15M}
+  integrations:
+    outbound-enabled: ${RMS_INTEGRATIONS_OUTBOUND_ENABLED:true}
+    timeout: ${RMS_INTEGRATIONS_TIMEOUT:PT5S}
+    endpoints: {}
+  platform:
+    feature-flags:
+      outbox-dispatch: ${RMS_FEATURE_OUTBOX_DISPATCH:true}
+      external-integrations: ${RMS_FEATURE_EXTERNAL_INTEGRATIONS:false}

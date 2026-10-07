@@ -1,0 +1,86 @@
+spring:
+  application:
+    name: demo
+
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring
+    username: root
+    password: Character@26
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  flyway:
+    enabled: false
+
+  web:
+    error:
+      include-message: always
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+  cache:
+    type: simple
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ""
+      timeout: 2s
+
+  quartz:
+    job-store-type: memory
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 5
+
+management:
+  tracing:
+    enabled: false
+    sampling:
+      probability: 0.0
+
+rms:
+  security:
+    jwt-secret: rms-local-development-secret-key-256-bit-change-before-production
+
+  files:
+    storage-root: ./storage
+
+  integrations:
+    outbound-enabled: false
+
+  platform:
+    feature-flags:
+      external-integrations: false

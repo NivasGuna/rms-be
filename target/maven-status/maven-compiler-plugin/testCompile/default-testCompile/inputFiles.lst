@@ -1,0 +1,17 @@
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/integration/OutboxIntegrationTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/integration/PlatformOperationalIntegrationTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/notification/NotificationServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/security/PermissionServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/AuditTrailServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/BackgroundJobServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/BusinessRuleServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/CandidateServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/DashboardServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/FileServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/JobRequestServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/NotificationCenterServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/ReportServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/UserServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/WorkflowEngineServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/service/impl/WorkflowTimelineServiceImplTest.java
+/Users/nivasg/Documents/RMS/src/test/java/com/arigs/rms/validator/WorkflowValidatorTest.java
